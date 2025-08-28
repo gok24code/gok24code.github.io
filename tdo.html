@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TDo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+  </head>
+  <body
+    class="bg-gray-100 dark:bg-purple-900 text-gray-900 dark:text-purple-300 transition-colors duration-300 min-h-screen flex items-top justify-center"
+  >
+    <div class="w-full p-6 bg-white dark:bg-purple-700 rounded">
+      <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">TDo List</h1>
+        <div class="flex items-center space-x-2">
+          <span class="text-sm select-none dark:text-white">☀️</span>
+
+          <label
+            for="theme-toggle"
+            class="relative inline-block w-12 h-6 cursor-pointer"
+          >
+            <input type="checkbox" id="theme-toggle" class="sr-only" />
+            <span
+              class="block bg-gray-300 dark:bg-purple-500 w-12 h-6 rounded-full transition-colors duration-300"
+            ></span>
+            <span
+              class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300"
+            ></span>
+          </label>
+
+          <span class="text-sm select-none dark:text-gray-300">🌙</span>
+        </div>
+      </div>
+
+      <form id="todo-form" class="flex gap-2 mb-4">
+        <input
+          id="todo-input"
+          type="text"
+          placeholder="Add Tasks..."
+          required
+          class="flex-1 px-3 py-2 rounded border border-gray-300 dark:border-purple-600 dark:bg-purple-700 shadow-xl"
+        />
+        <button
+          type="submit"
+          class="font-semibold bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500"
+        >
+          Add
+        </button>
+      </form>
+
+      <ul id="todo-list" class="space-y-2"></ul>
+    </div>
+
+    <script>
+      const toggleCheckbox = document.getElementById("theme-toggle");
+      const root = document.documentElement;
+      const dot = document.querySelector("label span.dot");
+
+      // Sayfa yüklendiğinde tema ayarını uygula ve dot pozisyonunu güncelle
+      function applyTheme(theme) {
+        if (theme === "dark") {
+          root.classList.add("dark");
+          toggleCheckbox.checked = true;
+          dot.classList.add("translate-x-6");
+        } else {
+          root.classList.remove("dark");
+          toggleCheckbox.checked = false;
+          dot.classList.remove("translate-x-6");
+        }
+      }
+
+      // Sayfa yüklendiğinde
+      const savedTheme = localStorage.getItem("theme") || "light";
+      applyTheme(savedTheme);
+
+      // Switch değiştiğinde
+      toggleCheckbox.addEventListener("change", () => {
+        if (toggleCheckbox.checked) {
+          localStorage.setItem("theme", "dark");
+          applyTheme("dark");
+        } else {
+          localStorage.setItem("theme", "light");
+          applyTheme("light");
+        }
+      });
+
+      // TO-DO fonksiyonları
+      const form = document.getElementById("todo-form");
+      const input = document.getElementById("todo-input");
+      const list = document.getElementById("todo-list");
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const todos = JSON.parse(localStorage.getItem("todos")) || [];
+        todos.forEach((todo) => addTodo(todo.text, todo.completed));
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (input.value.trim() === "") return;
+        addTodo(input.value);
+        input.value = "";
+      });
+
+      function addTodo(text, completed = false) {
+        const li = document.createElement("li");
+        li.textContent = text;
+        li.className = `text-center bg-gray-100 dark:bg-purple-800 px-3 py-2 rounded cursor-pointer ${
+          completed ? "line-through text-purple-400" : ""
+        }`;
+
+        li.addEventListener("click", () => {
+          li.classList.toggle("line-through");
+          li.classList.toggle("text-gray-400");
+          saveTodos();
+        });
+
+        li.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          li.remove();
+          saveTodos();
+        });
+
+        list.appendChild(li);
+        saveTodos();
+      }
+
+      function saveTodos() {
+        const todos = [];
+        document.querySelectorAll("#todo-list li").forEach((li) => {
+          todos.push({
+            text: li.textContent,
+            completed: li.classList.contains("line-through"),
+          });
+        });
+        localStorage.setItem("todos", JSON.stringify(todos));
+      }
+    </script>
+  </body>
+</html>
