@@ -1,0 +1,83 @@
+* {
+  transition: ease-in-out 0.2s;
+  user-select: none;
+}
+
+body {
+  margin-bottom: 5rem;
+  background: linear-gradient(to bottom, #569fff 0%, #002fff 50%);
+  min-height: 61vh;
+  font-family: monospace;
+  font-variant: small-caps;
+  font-weight: bolder;
+  text-align: center;
+  justify-content: center;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  font-size: 6rem;
+  margin: 0;
+  padding: 1rem;
+}
+.instance {
+  gap: 2rem;
+  margin: 0 auto; /* Otomatik kenar boşluklarıyla ortala */
+  padding: 1rem;
+  display: flex;
+  width: 32rem; /* Sabit genişlik koru */
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.3);
+  border: rgba(255, 255, 255, 1);
+  border-style: dotted;
+  border-radius: 2rem;
+  box-shadow: 0px 2px 80px rgba(255, 255, 255, 0.5);
+  justify-content: center; /* İçeriği yatayda ortala */
+  margin-top: 20.5rem; /* Yukarıdaki boşluk korundu */
+}
+
+.instance:hover {
+  padding: 2rem;
+}
+
+.minutes {
+  display: flex;
+  padding: 1rem 1rem;
+  background-color: rgba(255, 255, 255, 0.267);
+  border-radius: 2rem;
+}
+
+.minutes:hover {
+  padding: 2rem 2rem;
+}
+
+.minutes li {
+  text-shadow: 0rem 0.4rem #5e77e6;
+}
+.minutes li:hover {
+  text-shadow: 0rem 0rem #5e77e6;
+}
+
+.button-main {
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  color: wheat;
+  background: linear-gradient(to bottom, #569fff 25%, #5e77e6 50%);
+  margin-top: 1rem;
+  border-style: none;
+  cursor: pointer;
+  box-shadow: 0 0 2rem rgba(255, 255, 255, 0.5);
+  font-weight: bolder;
+}
+
+.button-main:hover {
+  padding: 1.5rem 2rem;
+  background: linear-gradient(to bottom, #64a7ff 25%, #002fff 50%);
+  font-size: 1rem;
+}
+.timer {
+  background-color: transparent;
+  border-color: transparent;
+  color: white;
+}
