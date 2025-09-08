@@ -5,7 +5,7 @@
 
 body {
   margin-bottom: 5rem;
-  background: linear-gradient(to bottom, #569fff 0%, #002fff 50%);
+  background-color: #0066ff;
   min-height: 61vh;
   font-family: monospace;
   font-variant: small-caps;
@@ -26,7 +26,7 @@ ul {
   margin: 0 auto; /* Otomatik kenar boşluklarıyla ortala */
   padding: 1rem;
   display: flex;
-  width: 32rem; /* Sabit genişlik koru */
+  width: 25rem; /* Sabit genişlik koru */
   color: rgba(255, 255, 255, 0.7);
   background-color: rgba(255, 255, 255, 0.3);
   border: rgba(255, 255, 255, 1);
@@ -37,19 +37,19 @@ ul {
   margin-top: 20%; /* Yukarıdaki boşluk korundu */
 }
 
-.instance:hover {
-  padding: 2rem;
-}
-
 .minutes {
   display: flex;
   padding: 1rem 1rem;
+  width: 100rem;
+  justify-content: center;
   background-color: rgba(255, 255, 255, 0.267);
-  border-radius: 2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(3rem);
 }
 
 .minutes:hover {
-  padding: 2rem 2rem;
+  backdrop-filter: blur(10rem);
+  padding: 2rem 0;
 }
 
 .minutes li {
@@ -59,11 +59,16 @@ ul {
   text-shadow: 0rem 0rem #5e77e6;
 }
 
+.minutes li:last-child {
+  font-size: 2rem;
+  margin-top: 3.5rem;
+}
+
 .button-main {
   padding: 1rem 1.5rem;
   border-radius: 1rem;
   color: wheat;
-  background: linear-gradient(to bottom, #569fff 25%, #5e77e6 50%);
+  background: linear-gradient(to bottom, #569fff 25%, #0066ff 100%);
   margin-top: 1rem;
   border-style: none;
   cursor: pointer;
@@ -73,11 +78,190 @@ ul {
 
 .button-main:hover {
   padding: 1.5rem 2rem;
-  background: linear-gradient(to bottom, #64a7ff 25%, #002fff 50%);
+  background: transparent;
+  border-style: solid;
   font-size: 1rem;
 }
 .timer {
   background-color: transparent;
   border-color: transparent;
   color: white;
+}
+
+.reset-button {
+  font-size: 1.1rem;
+  margin: 0 0.5rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 4rem;
+  box-shadow: 0 0.4rem #5e77e6;
+}
+
+.reset-button:hover {
+  box-shadow: 0 0rem transparent;
+  background-color: transparent;
+  animation-name: spin;
+  animation-duration: 300ms;
+  animation-iteration-count: initial;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.infotext {
+  color: white;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0 auto;
+  align-items: center;
+  text-align: center;
+}
+
+.infotext:hover {
+  color: transparent;
+}
+
+.reset-li {
+  display: flex;
+  margin-top: 4.49rem;
+}
+
+/*--------------------------------------------------------------------------*/
+
+/* for mobile section */
+
+@media only screen and (max-width: 600px) {
+  * {
+    transition: ease-in-out 0.2s;
+    user-select: none;
+  }
+
+  body {
+    margin-bottom: 2.5rem;
+    background-color: #0066ff;
+    min-height: 30.5vh;
+    font-family: monospace;
+    font-variant: small-caps;
+    font-weight: bolder;
+    text-align: center;
+    justify-content: center;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    font-size: 4rem;
+    margin: 0;
+    padding: 0.5rem;
+  }
+  .instance {
+    gap: 1rem;
+    margin: 0 auto; /* Otomatik kenar boşluklarıyla ortala */
+    padding: 0.5rem;
+    display: flex;
+    width: 15rem; /* Sabit genişlik koru */
+    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.3);
+    border: rgba(255, 255, 255, 1);
+    border-style: dotted;
+    border-radius: 1rem;
+    box-shadow: 0px 2px 80px rgba(255, 255, 255, 0.5);
+    justify-content: center; /* İçeriği yatayda ortala */
+    margin-top: 10%; /* Yukarıdaki boşluk korundu */
+  }
+
+  .minutes {
+    display: flex;
+    padding: 0.5rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.267);
+    border-radius: 1rem;
+    backdrop-filter: blur(3rem);
+  }
+
+  .minutes:hover {
+    backdrop-filter: blur(10rem);
+    padding: 1rem 0;
+  }
+
+  .minutes li {
+    text-shadow: 0rem 0.1rem #5e77e6;
+  }
+  .minutes li:hover {
+    text-shadow: 0rem 0rem #5e77e6;
+  }
+
+  .minutes li:last-child {
+    font-size: 1rem;
+    margin-top: 2.85rem;
+  }
+
+  .button-main {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    color: wheat;
+    background: linear-gradient(to bottom, #569fff 25%, #0066ff 100%);
+    margin-top: 0.5rem;
+    border-style: none;
+    cursor: pointer;
+    box-shadow: 0 0 1rem rgba(255, 255, 255, 0.5);
+    font-weight: bolder;
+  }
+
+  .button-main:hover {
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border-style: solid;
+    font-size: 1rem;
+  }
+  .timer {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+  }
+
+  .reset-button {
+    font-size: 0.55rem;
+    margin: 0 0.25rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4rem;
+    box-shadow: 0 0.12rem #5e77e6;
+  }
+
+  .reset-button:hover {
+    box-shadow: 0 0rem transparent;
+    background-color: transparent;
+    animation-name: spin;
+    animation-duration: 300ms;
+    animation-iteration-count: initial;
+    animation-timing-function: linear;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .infotext {
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  .reset-li {
+    display: flex;
+    margin-top: 3.2rem;
+  }
 }
