@@ -9,7 +9,7 @@ function startCountdown() {
   let timer = setInterval(() => {
     if (totalSeconds <= 0) {
       clearInterval(timer);
-      location.reload();
+      reloadScene();
       return;
     }
 
@@ -32,3 +32,7 @@ function startCountdown() {
 document
   .getElementById("startButton")
   .addEventListener("click", startCountdown);
+
+function reloadScene() {
+  location.reload();
+}
