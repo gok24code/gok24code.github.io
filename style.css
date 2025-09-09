@@ -126,6 +126,9 @@ ul {
 .infotext:hover {
   color: transparent;
 }
+.infotext2 {
+  display: none;
+}
 
 .reset-li {
   display: flex;
@@ -260,6 +263,12 @@ ul {
     text-align: center;
   }
 
+  .infotext2 {
+    display: block;
+    position: fixed;
+    margin-right: 9rem;
+    font-size: 0.8rem;
+  }
   .reset-li {
     display: flex;
     margin-top: 3.2rem;
