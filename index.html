@@ -1,205 +1,70 @@
 <!DOCTYPE html>
-<html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
-    <title>TTagram</title>
-  </head>
-  <div class="select-none">
-    <body
-      class="font-semibold bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] min-h-[100vh]"
-    >
-      <header class="bg-[#a6c1ee] shadow-lg">
-        <nav
-          class="flex justify-between items-center w-[92%] bg-[#a6c1ee] mx-auto"
-        >
-          <div class="flex justify-between">
-            <ion-icon
-              name="code-slash-outline"
-              class="text-2xl font-black"
-            ></ion-icon>
-            <h1 class="font-black">TTagram</h1>
-          </div>
-          <div
-            class="transition delay-150 duration-300 ease-in-out nav-links md:static absolute bg-[#a6c1ee] md:min-h-fit min-h-[30vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 py-3"
-          >
-            <ul
-              class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8"
-            >
-              <li>
-                <a
-                  class="transition delay-150 duration-300 ease-in-out px-3 py-2 hover:text-lime-300 hidden sm:block"
-                  href="https://influenzaentertainment.com"
-                  target="_blank"
-                  >IE</a
-                >
-                <a
-                  class="transition delay-150 duration-300 ease-in-out px-3 py-2 hover:text-lime-300 md:hidden"
-                  href="https://influenzaentertainment.com"
-                  target="_blank"
-                  >Influenza Entertainment</a
-                >
-              </li>
-              <li>
-                <a
-                  class="transition delay-150 duration-300 ease-in-out px-3 py-2 hover:text-white"
-                  href="https://github.com/gok24code"
-                  target="_blank"
-                  ><ion-icon name="logo-github" class="px-3 text-3xl"></ion-icon
-                ></a>
-              </li>
-              <li>
-                <a
-                  class="transition delay-150 duration-300 ease-in-out px-3 py-2 hover:text-blue-500"
-                  href="https://www.linkedin.com/in/g%C3%B6ktu%C4%9F-toygu%C3%A7-7a344425b/"
-                  target="_blank"
-                  ><ion-icon
-                    name="logo-linkedin"
-                    class="px-3 text-3xl"
-                  ></ion-icon
-                ></a>
-              </li>
-              <li>
-                <a
-                  class="transition delay-150 duration-300 ease-in-out px-3 py-2 hover:text-pink-500"
-                  href="https://www.instagram.com/gok_2.0/"
-                  target="_blank"
-                  ><ion-icon
-                    name="logo-instagram"
-                    class="px-3 text-3xl"
-                  ></ion-icon
-                ></a>
-              </li>
-              <li>
-                <a
-                  class="transition delay-150 duration-300 ease-in-out px-3 py-2 hover:text-red-600"
-                  href="https://www.youtube.com/@goktug-spider"
-                  target="_blank"
-                  ><ion-icon
-                    name="logo-youtube"
-                    class="px-3 text-3xl"
-                  ></ion-icon
-                ></a>
-              </li>
-              <li>
-                <a
-                  class="transition delay-150 duration-300 ease-in-out px-3 py-2 hover:text-purple-600"
-                  href="/tdo.html"
-                  target="_blank"
-                  ><ion-icon
-                    name="calendar-outline"
-                    class="px-3 text-3xl"
-                  ></ion-icon
-                ></a>
-              </li>
-              <li>
-                <a
-                  class="transition delay-150 duration-300 ease-in-out px-3 py-2 hover:text-blue-600"
-                  href="/clock.html"
-                  target="_blank"
-                  ><ion-icon name="hourglass" class="px-3 text-3xl"></ion-icon
-                ></a>
-              </li>
-            </ul>
-          </div>
-          <div class="flex items-center gap-6">
-            <button
-              class="transition delay-150 duration-300 ease-in-out bg-[#a6c1ee] text-black font-black px-3 py-2 my-3 rounded-full px-3 py-2 hover:bg-[#87acec] hover:text-white hover:shadow-md"
-            >
-              <a href="mailto:noxonninen@gmail.com"
-                ><ion-icon name="create-outline" class="text-2xl"></ion-icon
-              ></a>
-            </button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <ion-icon
-              onclick="onToggleMenu(this)"
-              name="menu"
-              class="text-3xl cursor-pointer transition delay-150 duration-300 ease-in-out md:hidden"
-            ></ion-icon>
-          </div>
-        </nav>
-      </header>
+    <link rel="stylesheet" href="styleskeleton.css">
+    <link rel="stylesheet" href="stylecolumns.css">
+    <title>Portfoy of Gok2</title>
+</head>
+<body>
+    <div class="disclaimer">
+        <h3>Dear, curious person this website is avalible <br> just for computer view. <br> So you cant view from on your phone <br> thanks to your attention. See you later.</h3>
 
-      <div
-        class="transition delay-150 duration-300 ease-in-out shadow-md rounded-2xl p-4 m-4 max-w-md mx-auto hover:shadow-xl"
-      >
-        <div class="flex items-center gap-3">
-          <img
-            src="https://yt3.ggpht.com/mDliYwRysYsoDoXtEP2iGBQJBT0XUI_gZpovExoXU8D72WHKMnafvY2iS_VimDC1yvbkBvmw=s600-c-k-c0x00ffffff-no-rj-rp-mo"
-            alt="avatar"
-            class="w-7 h-7 rounded-full"
-          />
-          <h2 class="font-semibold">Ben Kimim?</h2>
+        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fc.tenor.com%2Ftga0EoNOH-8AAAAM%2Floading-load.gif&f=1&nofb=1&ipt=450fb0ac69f26762b5786497c7887ed6bcf5e9548eb8d295aef9cd3ed8f842a4" alt="">
+    </div>
+    <div class="mainContainer">
+
+        <div class="profileContainer">
+            <img src="https://avatars.githubusercontent.com/u/229023019?v=4" alt="" class="profilePicture">
+
+        <div class="aboutContainer">
+            <h3>About Me: <br><br> Who is gök2? </br></br></h3>
+                    <p>I’m on my way to becoming a computer engineer, and I’m someone who never suppresses curiosity. When I focus on an idea, I don’t stop until I solve it, which helps me improve both in software and in life. My passion for technology, my hunger to learn, and my desire to create practical solutions push me to grow a little more every day.</p>
+                <div class="contactContainer">
+                    <button class="contact"><h6>Contact | noxonninen@gmail.com</h6></button>
+                    <br>
+                </div>
+            </div>
         </div>
-        <p class="mt-2 text-gray-700">
-          Merhaba ben Isparta Üniversitesi Bilgisayar Mühendisliğinde okuyan bir
-          gencim, hayatım bilgisayarlarla geçti. Projelerden projeler koştum
-          öyle de devam etmekteyim. Bana başarılar dilemek isterseniz veya bir
-          istek, iletişim talebiniz olursa mail atmaktan çekinmeyin. İyi günler
-          dilerim!!!
-        </p>
-      </div>
 
-      <div
-        class="transition delay-150 duration-300 ease-in-out shadow-md rounded-2xl p-4 m-4 max-w-md mx-auto hover:shadow-xl"
-      >
-        <div class="flex items-center gap-3">
-          <img
-            src="https://yt3.ggpht.com/mDliYwRysYsoDoXtEP2iGBQJBT0XUI_gZpovExoXU8D72WHKMnafvY2iS_VimDC1yvbkBvmw=s600-c-k-c0x00ffffff-no-rj-rp-mo"
-            alt="avatar"
-            class="w-7 h-7 rounded-full"
-          />
-          <h2 class="font-semibold">İş hayatım?</h2>
+        <div class="generalHandler">
+            <div class="projects">
+                <h3>My Projects</h3>
+                <h6>Mostly Used Languages: C#, C++, Python</h6>
+                <button><a href="https://github.com/gok24code/GeneralPythonProjects" target="_blank">Python Projects</a></button><br>
+                
+                <button><a href="https://github.com/gok24code/CPPJourney" target="_blank">C++ Basics Learning Projects</a></button>
+                <hr>
+                <button><a href="https://noxatra.itch.io/">My Games that I published on itch.</a></button> <br>
+                <hr>
+                <button><a href="https://gok24code.github.io/tdo.html">Web to do list.</a></button>
+                <button><a href="https://gok24code.github.io/clock.html">Web timer.</a></button>
+            </div>
+
+            <div class="Social">
+                <h3>Find me on social media</h3>
+                    <ul>
+                        <li><a href="https://www.instagram.com/gok2.py/">Instagram</a></li>
+                        <li><a href="https://medium.com/@goktugtoyguc">Medium</a></li>
+                        <li><a href="https://www.youtube.com/@gok24code">Youtube</a></li>
+                        <li><a href="https://www.linkedin.com/in/g%C3%B6ktu%C4%9F-toygu%C3%A7-7a344425b/">Linkedin</a></li>
+                    </ul>
+            </div>
+
+            <div class="websites">
+                 <h3>The Websites that I built</h3>
+                    <ul>
+                        <li><a href="#">kargawood.net (closed)</a></li>
+                        <li><a href="#">noxienet.com.tr (closed)</a></li>
+                    </ul><hr>
+                <h3>My attempts.</h3>
+                    <ul>
+                        <li><a href="https://influenzaentertainment.com/">Influenza Entertainment</a></li>
+                    </ul>        
+            </div>
         </div>
-        <p class="mt-2 text-gray-700">
-          Daha önce yeni veya eskiden kurulmuş kurumlarda yazılım mühendisliği
-          yaptım bunlardan birisi "Antalya Bilişim" adlı bir oluşumdur.
-          Şimdilerde ise kendi iş ortamımı kurmaya çalışıyorum kendi hayatımı ve
-          kazancımı elime almayı deniyorum yani bir düzen kurmaya çalışmaktayım.
-        </p>
-      </div>
-
-      <div
-        class="transition delay-150 duration-300 ease-in-out shadow-md rounded-2xl p-4 m-4 max-w-md mx-auto hover:shadow-xl"
-      >
-        <div class="flex items-center gap-3">
-          <img
-            src="https://yt3.ggpht.com/mDliYwRysYsoDoXtEP2iGBQJBT0XUI_gZpovExoXU8D72WHKMnafvY2iS_VimDC1yvbkBvmw=s600-c-k-c0x00ffffff-no-rj-rp-mo"
-            alt="avatar"
-            class="w-7 h-7 rounded-full"
-          />
-          <h2 class="font-semibold">Peki Nedir bu "</h2>
-          <h3 class="text-lime-300 font-black">influenzaentertainment</h3>
-          <h2 class="font-semibold">"?</h2>
-        </div>
-        <p class="mt-2 text-gray-700">
-          Bir arkadaşımla beraber kurduğumuz gün geçtikçe bünyesine ekip
-          arkadaşı katmaya devam eden, potansiyeli çok yüksek bir şirket. Canım
-          şirketim de diyebilirim. :))
-        </p>
-      </div>
-
-      <script>
-        const navLinks = document.querySelector(".nav-links");
-        function onToggleMenu(e) {
-          e.name = e.name === "menu" ? "close" : "menu";
-          e.classList.toggle("animate-spin");
-          navLinks.classList.toggle("top-[9%]");
-        }
-
-        console.log("Siteyi ziyaret ettiğiniz için teşekkürler :)");
-        console.log("Eğer isterseniz projelerime göz atabilirsiniz.");
-      </script>
-    </body>
-  </div>
+    </div>
+</body>
 </html>
