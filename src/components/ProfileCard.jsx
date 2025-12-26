@@ -34,10 +34,10 @@ const ProfileCard = () => {
       <h2>Göktuğ Toyguç</h2>
       <p>A passionate full-stack developer with a knack for creating innovative and user-friendly web applications. With a strong foundation in front-end and back-end technologies, I enjoy bringing ideas to life and am always eager to explore new technologies. My portfolio showcases a diverse range of projects, from interactive websites to AI-powered applications.</p>
       <div className="social-links">
-        <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.youtube.com/@gok24code" target="_blank" rel="noopener noreferrer">
           <button className="youtube-btn">YouTube</button>
         </a>
-        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.linkedin.com/in/g%C3%B6ktu%C4%9F-toygu%C3%A7-7a344425b/" target="_blank" rel="noopener noreferrer">
           <button className="linkedin-btn">LinkedIn</button>
         </a>
       </div>
