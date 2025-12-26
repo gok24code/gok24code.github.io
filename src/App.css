@@ -1,0 +1,163 @@
+
+
+body {
+  background-color: #1a1a1a;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;   /* Center vertically */
+  min-height: 100vh;
+  padding: 0; /* Remove padding-top */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.main-portfolio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.profile-card,
+.projects-card {
+  background-color: #2a2a2a;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+
+.profile-card {
+  text-align: center;
+}
+
+.social-links {
+  margin-top: 1rem;
+}
+
+.social-links button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0.5rem;
+  transition: background-color 0.3s;
+}
+
+.social-links button:hover {
+  background-color: #555;
+}
+
+.social-links .youtube-btn:hover {
+  background-color: #FF0000; /* YouTube Red */
+}
+
+.social-links .linkedin-btn:hover {
+  background-color: #0077B5; /* LinkedIn Blue */
+}
+
+.projects-card h2 {
+  margin-top: 0;
+}
+
+.projects-card ul {
+  list-style-type: none;
+  padding: 0;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding-right: 1rem; /* Space for the scrollbar */
+  max-height: 400px; /* Restore original max-height */
+}
+
+/* Custom scrollbar for webkit browsers */
+.projects-card ul::-webkit-scrollbar {
+  width: 8px;
+}
+.projects-card ul::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 10px;
+}
+.projects-card ul::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+.projects-card ul::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+
+.projects-card li {
+  margin-bottom: 1rem;
+  background-color: #333;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.projects-card li:hover {
+  background-color: #444;
+}
+
+.projects-card a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.projects-card h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.projects-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+
+h1 {
+  text-align: center;
+  width: 100%; /* Ensure title spans the width */
+  margin-bottom: 2rem; /* Space below title */
+  color: #A9A9A9; /* Darker grey color */
+}
+
+@media (min-width: 768px) {
+  .cards-wrapper {
+    flex-direction: row;
+    align-items: stretch; /* Cards align at start for equal height */
+  }
+
+  .profile-card {
+    flex: 0 0 300px;
+    position: sticky; /* Keep profile card in view */
+    top: 2rem; /* Adjust top position for sticky */
+  }
+
+  .projects-card {
+    flex: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-portfolio-container {
+    padding-top: 2rem;
+  }
+}
