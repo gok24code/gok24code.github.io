@@ -1405,8 +1405,15 @@ main {
   padding: 18px 18px 14px;
 }
 
+/* Room for the hovered cell to grow (scale 1.35 + ring) inside the scroller, and no
+   vertical scrolling at all: otherwise the enlarged cell creates vertical overflow,
+   and on systems with always-visible scrollbars a scrollbar flickers in and shifts
+   the whole calendar sideways. */
 .heat__scroll {
+  padding: 6px;
+  margin: -6px;
   overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: thin;
   scrollbar-color: var(--line-2) transparent;
 }
