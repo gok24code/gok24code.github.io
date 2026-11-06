@@ -25,3 +25,27 @@ npm install
 npm run dev      # local
 npm run deploy   # build + push dist/ to gh-pages
 ```
+
+<!--
+NOT: Yeni sertifika nasıl eklenir (bu blok GitHub'da görünmez)
+
+Site, github.com/gok24code/My_Online_Certificates reposundaki README'yi her açılışta
+canlı okur. Deploy gerekmez.
+
+1. Görseli o repodaki certificates/ klasörüne koy (ör. certificates/6.png).
+2. O README'ye başlık + hemen altına görsel ekle:
+
+     <li>
+         <h1>Sertifika Adı</h1>
+         <img src = "/certificates/6.png"></img>
+     </li>
+
+   Markdown da olur:  ## Sertifika Adı   ve altına   ![](certificates/6.png)
+
+- Sitede görünmesi 5 dakikaya kadar sürebilir (GitHub README önbelleği).
+- Sıra = README'deki sıra. En üstte görünmesini istediğini en üste koy.
+- Her görselin üstünde bir başlık olsun; başlıksız görsel alt metnini başlık alır.
+- Sertifika sayısı profil kartında ve terminaldeki `certs` komutunda otomatik güncellenir.
+- Bu örnekleri sertifika reposunun README'sine yorum olarak koyma: parser onları
+  gerçek sertifika sanar.
+-->
