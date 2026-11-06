@@ -10,13 +10,13 @@ export const milestones = [
     now: true,
     kind: 'work',
     title: 'Game Development Group Lead',
-    text: 'ISUBÜ Siber Güvenlik ve Yapay Zeka Kulübü',
+    text: 'ISUBÜ Siber Güvenlik ve Yapay Zeka Öğrenci Topluluğu',
   },
   {
     now: true,
     kind: 'work',
     title: 'Software Coordinator',
-    text: 'ISUBÜ TEKNOFEST Kulübü',
+    text: 'ISUBÜ TEKNOFEST Öğrenci Topluluğu',
   },
   {
     now: true,
