@@ -22,10 +22,10 @@ export default function Hero({ gh, certs, built }) {
         </p>
         <h1 className="hero__name b" data-tag="h1">
           <span className="hero__first">
-            <Scramble text={profile.firstName} start={built} delay={350} />
+            <Scramble text={profile.firstName} start={built} delay={0} />
           </span>
           <span className="hero__last">
-            <Scramble text={profile.lastName} start={built} delay={500} />
+            <Scramble text={profile.lastName} start={built} delay={180} />
           </span>
         </h1>
         <p className="hero__role b" data-fx="type">
