@@ -45,8 +45,12 @@ export default function Timeline({ gh, certs }) {
         href: `https://github.com/${GH_USER}`,
       })
     }
-    for (const m of milestones) ev.push({ kind: 'milestone', ...m })
-    return ev.sort((a, b) => (a.date < b.date ? 1 : -1))
+    for (const m of milestones) ev.push({ kind: 'milestone', ...m, date: m.now ? '9999' : m.date })
+    // stable sort: newest first; hand-written entries keep their order within a year
+    return ev
+      .map((e, i) => [e, i])
+      .sort(([a, i], [b, j]) => (a.date === b.date ? i - j : a.date < b.date ? 1 : -1))
+      .map(([e]) => e)
   }, [gh.repos, gh.user, certs])
 
   if (!events.length) return null
@@ -64,20 +68,25 @@ export default function Timeline({ gh, certs }) {
 
       <ol className="tl">
         {shown.map((e, i) => {
-          const year = e.date.slice(0, 4)
-          const showYear = i === 0 || shown[i - 1].date.slice(0, 4) !== year
+          const year = e.date === '9999' ? 'now' : e.date.slice(0, 4)
+          const prev = shown[i - 1]
+          const showYear = i === 0 || (prev.date === '9999' ? 'now' : prev.date.slice(0, 4)) !== year
           const k = KIND[e.kind] || KIND.milestone
           const ext = e.href && /^https?:/.test(e.href)
           const Body = e.href ? 'a' : 'div'
           return (
-            <li key={`${e.date}-${e.title}`} className={`tl__item tl__item--${e.kind} b`} data-fx="tl" style={{ '--n': i }}>
-              {showYear && <span className="tl__year">{year}</span>}
+            <li key={`${e.date}-${e.title}-${e.period || ''}`} className={`tl__item tl__item--${e.kind} b`} data-fx="tl" style={{ '--n': i }}>
+              {showYear && <span className={`tl__year${year === 'now' ? ' tl__year--now' : ''}`}>{year}</span>}
               <span className="tl__dot" aria-hidden="true">
                 {k.icon}
               </span>
               <Body className="tl__card" {...(e.href ? { href: e.href } : {})} {...(ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                 <span className="tl__meta">
-                  <time dateTime={e.date}>{when(e.date)}</time>
+                  {e.now ? (
+                    <span className="tl__now">● now</span>
+                  ) : (
+                    <time dateTime={e.date}>{e.period || when(e.date)}</time>
+                  )}
                   <span className={`tl__kind tl__kind--${e.kind}`}>{k.label}</span>
                 </span>
                 <span className="tl__title">{e.title}</span>
