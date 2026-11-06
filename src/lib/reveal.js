@@ -16,6 +16,8 @@ const FX = {
   select: { overlay: 'box', grow: 460, fill: 560 },
   scan: { overlay: 'box', grow: 460, fill: 720 },
   portrait: { overlay: 'box', grow: 520, fill: 400 },
+  grid: { overlay: 'box', grow: 460, fill: 400 },
+  tl: { overlay: null, grow: 0, fill: 620 },
   crt: { overlay: 'crt', grow: 620, fill: 600 },
   trace: { overlay: 'trace', grow: 640, fill: 520 },
   type: { overlay: null, grow: 0, fill: 700 },

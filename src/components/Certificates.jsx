@@ -53,7 +53,14 @@ export default function Certificates({ certs }) {
                 <span className="cert__badge" aria-hidden="true">
                   ✓
                 </span>
-                <span className="cert__title">{c.title}</span>
+                <span className="cert__text">
+                  <span className="cert__title">{c.title}</span>
+                  {c.date && (
+                    <time className="cert__date" dateTime={c.date}>
+                      {new Date(`${c.date}T00:00:00Z`).toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' })}
+                    </time>
+                  )}
+                </span>
               </div>
             </button>
           </li>

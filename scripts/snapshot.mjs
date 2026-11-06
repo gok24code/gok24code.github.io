@@ -6,6 +6,7 @@
 // Each source is refreshed independently; if one fails, its previous data is kept.
 import { readFile, writeFile } from 'node:fs/promises'
 import { parseItch } from './itch.mjs'
+import { parseContrib } from './contrib.mjs'
 import { parseCerts, CERT_README_URL } from '../src/lib/certs.js'
 
 const GH_USER = 'gok24code'
@@ -43,9 +44,11 @@ await step('github', async () => {
   next.user = (({ login, name, avatar_url, html_url, location, public_repos, followers, created_at }) => ({
     login, name, avatar_url, html_url, location, public_repos, followers, created_at,
   }))(user)
-  next.repos = repos.map(({ id, name, fork, archived, html_url, description, language, stargazers_count, pushed_at, homepage }) => ({
-    id, name, fork, archived, html_url, description, language, stargazers_count, pushed_at, homepage,
-  }))
+  next.repos = repos.map(
+    ({ id, name, fork, archived, html_url, description, language, stargazers_count, pushed_at, created_at, homepage }) => ({
+      id, name, fork, archived, html_url, description, language, stargazers_count, pushed_at, created_at, homepage,
+    }),
+  )
 })
 
 await step('itch', async () => {
@@ -64,6 +67,14 @@ await step('itch', async () => {
     throw new Error(`no games parsed (url ${res.url}, ${html.length} bytes, title "${title}", grid ${html.includes('user_game_grid')})`)
   }
   next.games = games
+})
+
+await step('contributions', async () => {
+  const res = await fetch(`https://github.com/users/${GH_USER}/contributions`, { headers: { 'User-Agent': gh['User-Agent'] } })
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const c = parseContrib(await res.text())
+  if (c.days.length < 300) throw new Error(`only ${c.days.length} days parsed`)
+  next.contrib = c
 })
 
 await step('certs', async () => {

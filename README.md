@@ -48,4 +48,15 @@ canlı okur. Deploy gerekmez.
 - Sertifika sayısı profil kartında ve terminaldeki `certs` komutunda otomatik güncellenir.
 - Bu örnekleri sertifika reposunun README'sine yorum olarak koyma: parser onları
   gerçek sertifika sanar.
+- Sertifikanın tarihi zaman çizelgesinde görünsün istiyorsan başlık ile görselin
+  arasına bir tarih yaz:  <p>22.11.2025</p>  (dd.mm.yyyy ya da yyyy-mm-dd).
+  Eski 5 sertifikanın tarihleri src/data/milestones.js içinde (certDates).
+
+NOT: Diğer ayarlar
+- Zaman çizelgesine eğitim, iş, ödül vb. eklemek: src/data/milestones.js → milestones.
+- Zaman çizelgesindeki projeler = GitHub'da açıklaması (description) olan repolar.
+  Açıklama ekledikçe hem çizelgeye hem proje listesinin başına çıkar.
+- İletişim e-postası: src/data/milestones.js → contact.email
+- Site her push'ta ve 6 saatte bir otomatik build/deploy olur (repo listesi,
+  itch.io oyunları, katkı haritası yedeği yenilenir).
 -->

@@ -3,6 +3,8 @@
 // on the site immediately. Supported README shapes, each heading followed by an image:
 //   <h1>Title</h1> <img src="/certificates/1.png">
 //   ## Title  ![alt](certificates/1.png)
+import { certDates } from '../data/milestones.js'
+
 export const CERT_REPO = 'gok24code/My_Online_Certificates'
 export const CERT_BRANCH = 'main'
 export const CERT_REPO_URL = `https://github.com/${CERT_REPO}`
@@ -15,6 +17,14 @@ const clean = (s) =>
     .replace(/&amp;/g, '&')
     .replace(/[*_`]/g, '')
     .trim()
+
+// dd.mm.yyyy or yyyy-mm-dd -> yyyy-mm-dd
+function findDate(text) {
+  const tr = text.match(/\b(\d{2})[./](\d{2})[./](\d{4})\b/)
+  if (tr) return `${tr[3]}-${tr[2]}-${tr[1]}`
+  const iso = text.match(/\b(\d{4})-(\d{2})-(\d{2})\b/)
+  return iso ? iso[0] : null
+}
 
 function resolve(src) {
   if (/^https?:\/\//.test(src)) return src
@@ -36,10 +46,12 @@ export function parseCerts(md) {
   let floor = -1
   for (const img of images) {
     const h = headings.filter((x) => x.at > floor && x.at < img.at).pop()
+    const between = md.slice(h ? h.at : floor + 1, img.at)
     floor = img.at
     const title = h?.title || img.alt
     if (!title || !img.src) continue
-    out.push({ title, image: resolve(img.src) })
+    const image = resolve(img.src)
+    out.push({ title, image, date: findDate(between) || certDates[image.split('/').pop()] || null })
   }
   return out
 }

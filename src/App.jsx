@@ -5,6 +5,9 @@ import Terminal from './components/Terminal'
 import Projects from './components/Projects'
 import Games from './components/Games'
 import Certificates from './components/Certificates'
+import Activity from './components/Activity'
+import Timeline from './components/Timeline'
+import Contact from './components/Contact'
 import StatusBar from './components/StatusBar'
 import { GH_USER, useGithub } from './lib/github'
 import { useCerts } from './lib/extras'
@@ -67,6 +70,7 @@ export default function App() {
             <a href="#projects">projects</a>
             <a href="#games">games</a>
             <a href="#certificates">certs</a>
+            <a href="#contact">contact</a>
             <a href={`https://github.com/${GH_USER}`} target="_blank" rel="noopener noreferrer">
               github ↗
             </a>
@@ -78,6 +82,9 @@ export default function App() {
           <Projects gh={gh} />
           <Games />
           <Certificates certs={certs} />
+          <Activity />
+          <Timeline gh={gh} certs={certs} />
+          <Contact />
         </main>
         <StatusBar gh={gh} />
         <div className="sel-layer" ref={layerRef} aria-hidden="true" />

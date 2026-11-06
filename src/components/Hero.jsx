@@ -2,6 +2,7 @@ import { profile } from '../data/profile'
 import { languageStats } from '../lib/github'
 import Scramble from './Scramble'
 import Portrait from './Portrait'
+import { mailto } from './Contact'
 import { games } from '../lib/extras'
 
 export default function Hero({ gh, certs, built }) {
@@ -35,6 +36,9 @@ export default function Hero({ gh, certs, built }) {
           {profile.bio}
         </p>
         <div className="hero__links">
+          <a className="btn btn--primary b" data-fx="pop" href={mailto}>
+            ✉ Get in touch
+          </a>
           {profile.links.map((l) => (
             <a key={l.label} className={`btn b${l.primary ? ' btn--primary' : ''}`} data-fx="pop" href={l.href} target="_blank" rel="noopener noreferrer">
               {l.label}

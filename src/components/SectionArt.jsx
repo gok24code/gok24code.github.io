@@ -222,6 +222,91 @@ const ShieldCheck = () => (
   </svg>
 );
 
+
+const GitBranch = () => (
+  <svg viewBox="0 0 120 120">
+    <path d="M34 14 V106" />
+    <path d="M34 78 C 34 60, 82 62, 82 42 V30" />
+    <circle cx="34" cy="20" r="6" />
+    <circle cx="34" cy="56" r="6" />
+    <circle className="hot" cx="82" cy="24" r="6" />
+    <circle cx="34" cy="100" r="6" />
+  </svg>
+)
+
+const Calendar = () => (
+  <svg viewBox="0 0 120 120">
+    <rect x="16" y="24" width="88" height="80" rx="8" />
+    <path d="M16 44 H104 M40 14 V32 M80 14 V32" />
+    <path d="M30 58 h10 v10 h-10 z M54 58 h10 v10 h-10 z M78 58 h10 v10 h-10 z M30 80 h10 v10 h-10 z M54 80 h10 v10 h-10 z" />
+    <path className="hot" d="M78 80 h10 v10 h-10 z" />
+  </svg>
+)
+
+const Keyboard = () => (
+  <svg viewBox="0 0 120 120">
+    <rect x="8" y="36" width="104" height="52" rx="7" />
+    <path d="M20 50 h8 M34 50 h8 M48 50 h8 M62 50 h8 M76 50 h8 M90 50 h10 M20 62 h12 M38 62 h8 M52 62 h8 M66 62 h8 M80 62 h20 M20 74 h8" />
+    <path className="hot" d="M34 74 H86" />
+    <path d="M92 74 h8" />
+  </svg>
+)
+
+const Rocket = () => (
+  <svg viewBox="0 0 120 120">
+    <g className="bob">
+      <path d="M60 10 C 78 26, 82 52, 76 80 H44 C 38 52, 42 26, 60 10 Z" />
+      <circle cx="60" cy="44" r="8" />
+      <path d="M44 66 L30 82 L44 80 M76 66 L90 82 L76 80" />
+      <path d="M52 80 V90 M60 80 V94 M68 80 V90" />
+    </g>
+    <g className="smoke">
+      <path className="hot" d="M54 98 C 52 104, 56 108, 54 114" />
+      <path className="hot" d="M66 98 C 64 104, 68 108, 66 114" />
+    </g>
+  </svg>
+)
+
+const Flag = () => (
+  <svg viewBox="0 0 120 120">
+    <path d="M30 108 V14" />
+    <path d="M18 108 H44" />
+    <g className="swing" style={{ transformOrigin: '30px 18px' }}>
+      <path className="hot" d="M30 18 C 46 10, 60 26, 92 18 V58 C 60 66, 46 50, 30 58 Z" />
+    </g>
+  </svg>
+)
+
+const Hourglass = () => (
+  <svg viewBox="0 0 120 120">
+    <path d="M34 14 H86 M34 106 H86" />
+    <path d="M40 14 C 40 44, 60 50, 60 60 C 60 70, 40 76, 40 106" />
+    <path d="M80 14 C 80 44, 60 50, 60 60 C 60 70, 80 76, 80 106" />
+    <path className="hot" d="M48 96 C 54 88, 66 88, 72 96 Z M60 64 V84" />
+  </svg>
+)
+
+const Envelope = () => (
+  <svg viewBox="0 0 120 120">
+    <g className="bob">
+      <rect x="12" y="30" width="96" height="64" rx="6" />
+      <path d="M14 34 L60 68 L106 34" />
+      <path d="M14 92 L48 60 M106 92 L72 60" />
+      <circle className="hot" cx="96" cy="34" r="9" />
+    </g>
+  </svg>
+)
+
+const PaperPlane = () => (
+  <svg viewBox="0 0 120 120">
+    <g className="bob">
+      <path d="M10 56 L110 14 L80 104 L58 74 Z" />
+      <path d="M58 74 L110 14 M58 74 L52 98 L68 84" />
+    </g>
+    <path className="hot" d="M8 90 C 20 84, 26 96, 40 88" />
+  </svg>
+)
+
 // x: 'l' | 'r' edge + offset (vw), y: % of section height, s: size px, d: parallax depth, keep: also on phones
 const SETS = {
   projects: [
@@ -237,6 +322,20 @@ const SETS = {
     { C: Joystick, x: ["r", 1.5], y: 52, s: 140, r: 0, d: 1 },
     { C: Cartridge, x: ["l", 2.5], y: 60, s: 110, r: 8, d: 0.6 },
     { C: Sparkle, x: ["r", 13], y: 4, s: 44, r: 0, d: 0.3 },
+  ],
+  activity: [
+    { C: GitBranch, x: ['l', 1.5], y: 6, s: 130, r: -6, d: 0.8, keep: true },
+    { C: Calendar, x: ['r', 2], y: 4, s: 120, r: 6, d: 0.6, keep: true },
+    { C: Keyboard, x: ['r', 1.5], y: 64, s: 150, r: -4, d: 1 },
+  ],
+  timeline: [
+    { C: Rocket, x: ['r', 2.5], y: 4, s: 140, r: 12, d: 0.9, keep: true },
+    { C: Flag, x: ['l', 2], y: 10, s: 120, r: -4, d: 0.6, keep: true },
+    { C: Hourglass, x: ['l', 1.5], y: 62, s: 120, r: 6, d: 1 },
+  ],
+  contact: [
+    { C: Envelope, x: ['l', 2], y: 10, s: 140, r: -8, d: 0.8, keep: true },
+    { C: PaperPlane, x: ['r', 2], y: 6, s: 150, r: 4, d: 1, keep: true },
   ],
   certs: [
     { C: Certificate, x: ["l", 1], y: 4, s: 160, r: -6, d: 0.8, keep: true },

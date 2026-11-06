@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { profile } from '../data/profile'
 import { GH_USER, languageStats, timeAgo } from '../lib/github'
 import { games, isJam, ITCH_URL } from '../lib/extras'
+import { contact } from '../data/milestones'
+import { mailto } from './Contact'
 
 const CHIPS = ['whoami', 'projects', 'games', 'certs', 'stack', 'contact', 'help']
 const COMMANDS = ['help', 'whoami', 'projects', 'games', 'certs', 'stack', 'contact', 'open', 'clear', 'sudo hire-me']
@@ -164,6 +166,12 @@ export default function Terminal({ gh, certs, built, onFirstCommand }) {
     } else if (key === 'contact') {
       out.push(
         <div className="t-grid">
+          <div className="t-row">
+            <span className="t-dim">email</span>
+            <a className="t-link" href={mailto}>
+              {contact.email}
+            </a>
+          </div>
           {profile.links.map((l) => (
             <div key={l.label} className="t-row">
               <span className="t-dim">{l.label.toLowerCase()}</span>

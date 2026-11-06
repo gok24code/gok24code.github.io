@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import snapshot from '../data/snapshot.json'
 
 export const GH_USER = 'gok24code'
-const CACHE_KEY = 'gh-cache-v2'
-const CACHE_TTL = 10 * 60 * 1000
+const CACHE_KEY = 'gh-cache-v3'
+const CACHE_TTL = 5 * 60 * 1000
 // Repos that are about the profile/site itself, not projects.
 const EXCLUDE = new Set([GH_USER.toLowerCase(), `${GH_USER}.github.io`])
 
@@ -18,9 +18,15 @@ function normalize(user, repos) {
       language: r.language || null,
       stars: r.stargazers_count || 0,
       pushedAt: r.pushed_at || r.updated_at || null,
+      createdAt: r.created_at || null,
       homepage: r.homepage || null,
     }))
-    .sort((a, b) => new Date(b.pushedAt || 0) - new Date(a.pushedAt || 0))
+    // repos that explain themselves first, then most recently pushed
+    .sort(
+      (a, b) =>
+        Number(Boolean(b.description)) - Number(Boolean(a.description)) ||
+        new Date(b.pushedAt || 0) - new Date(a.pushedAt || 0),
+    )
   return { user, repos: list }
 }
 
