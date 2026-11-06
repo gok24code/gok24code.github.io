@@ -1389,6 +1389,173 @@ main {
   cursor: pointer;
 }
 
+/* ---------- section line-art ---------- */
+.projects,
+.games,
+.certs {
+  position: relative;
+  isolation: isolate;
+}
+
+.art {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  z-index: -1;
+  pointer-events: none;
+  --p: 0;
+}
+
+.art__i {
+  position: absolute;
+  color: var(--royal-text);
+  opacity: 0.3;
+  transform: translate3d(0, calc(var(--p) * var(--depth) * -90px), 0) rotate(var(--rot));
+  will-change: transform;
+}
+
+.art__i svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.art__i :is(path, circle, rect, ellipse, line, polyline, polygon) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.art__i .hot {
+  stroke: var(--accent);
+}
+
+.art.drawn .art__i :is(path, circle, rect, ellipse, line, polyline, polygon) {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.3s cubic-bezier(0.6, 0, 0.2, 1) calc(var(--k) * 200ms + var(--j, 0) * 55ms + 150ms);
+}
+
+/* idle motion, after the drawing has finished */
+.art__i :is(.spin, .sway, .tilt, .swing, .bob, .pulse, .twinkle, .smoke) {
+  transform-box: view-box;
+}
+.art__i .spin {
+  transform-origin: 60px 60px;
+}
+.art__i .pulse,
+.art__i .twinkle {
+  transform-origin: 60px 60px;
+}
+.art.drawn .spin {
+  animation: spin 28s linear 2.2s infinite;
+}
+.art.drawn .sway {
+  animation: sway 5s ease-in-out 2.2s infinite alternate;
+}
+.art.drawn .tilt {
+  animation: sway 3.2s ease-in-out 2.2s infinite alternate;
+}
+.art.drawn .swing {
+  animation: swing 4s ease-in-out 2.2s infinite alternate;
+}
+.art.drawn .bob {
+  animation: bob 4.5s ease-in-out 2.2s infinite alternate;
+}
+.art.drawn .pulse {
+  animation: pulse 1.4s ease-in-out 2.2s infinite;
+}
+.art.drawn .twinkle {
+  animation: twinkle 2.6s ease-in-out 2.2s infinite;
+}
+.art.drawn .smoke {
+  animation: smoke 3s ease-in-out 2.2s infinite;
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-7deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+@keyframes swing {
+  from {
+    transform: rotate(-5deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+@keyframes bob {
+  to {
+    transform: translateY(-5px) rotate(2deg);
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.08);
+  }
+  30% {
+    transform: scale(0.98);
+  }
+  45% {
+    transform: scale(1.05);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.7) rotate(45deg);
+    opacity: 0.5;
+  }
+}
+@keyframes smoke {
+  0% {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .art__i:not(.art__i--keep) {
+    display: none;
+  }
+  .art__i {
+    opacity: 0.2;
+    scale: 0.55;
+    transform-origin: top center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art__i :is(path, circle, rect, ellipse, line, polyline, polygon) {
+    stroke-dashoffset: 0;
+  }
+}
+
 /* ---------- status bar ---------- */
 .status {
   position: fixed;

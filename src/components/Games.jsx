@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { games, hue, isJam, ITCH_URL } from '../lib/extras'
+import SectionArt from './SectionArt'
 
 function Cover({ g }) {
   if (g.cover)
@@ -33,6 +34,7 @@ export default function Games() {
 
   return (
     <section className="games" id="games">
+      <SectionArt set="games" />
       <header className="section-head section-head--row b" data-tag="header">
         <div>
           <p className="label">// 03 · games</p>

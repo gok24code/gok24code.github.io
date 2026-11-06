@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { CERT_REPO_URL, certThumb } from '../lib/certs'
+import SectionArt from './SectionArt'
 
 export default function Certificates({ certs }) {
   const [open, setOpen] = useState(null)
@@ -16,6 +17,7 @@ export default function Certificates({ certs }) {
 
   return (
     <section className="certs" id="certificates">
+      <SectionArt set="certs" />
       <header className="section-head section-head--row b" data-tag="header">
         <div>
           <p className="label">// 04 · certificates</p>

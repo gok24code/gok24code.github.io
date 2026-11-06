@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { GH_USER, langColor, languageStats, timeAgo } from '../lib/github'
+import SectionArt from './SectionArt'
 
 const INITIAL = 9
 
@@ -13,6 +14,7 @@ export default function Projects({ gh }) {
 
   return (
     <section className="projects" id="projects">
+      <SectionArt set="projects" />
       <header className="section-head b" data-tag="header">
         <p className="label">// 02 · projects</p>
         <h2>
