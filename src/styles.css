@@ -1374,80 +1374,70 @@ a.status__item:hover {
 }
 
 /* ---------- build reveal ----------
-   ::before = blue wireframe (+ dev-tools style size label), drawn first
-   ::after  = cover in page colour that slides away to reveal the content  */
+   Blocks start invisible on the bare background. A transparent selection box
+   (drawn by src/lib/reveal.js in .sel-layer) grows from the top-left corner,
+   then the content is drawn in from the same corner and the box fades out. */
 .b {
   position: relative;
 }
 
-.b::before,
-.b::after {
-  position: absolute;
-  pointer-events: none;
-}
-
-.b::before {
-  content: attr(data-label);
-  inset: -6px;
-  z-index: 3;
-  padding: 2px 5px;
-  border: 1px solid var(--wire);
-  border-radius: 4px;
-  font-family: var(--mono);
-  font-size: 10px;
-  line-height: 1.4;
-  color: var(--wire);
-  white-space: nowrap;
-  overflow: hidden;
+/* Hidden with opacity, not clip-path: Chrome treats a fully clipped target as
+   not intersecting, which would stop the IntersectionObserver from firing. */
+.app:not(.no-motion) .b:not(.in) {
   opacity: 0;
 }
 
-.b::after {
-  content: '';
-  inset: -3px;
-  z-index: 2;
-  border-radius: 6px;
-  background: linear-gradient(90deg, var(--panel) 0%, var(--panel-2) 100%);
-  border-left: 2px solid var(--accent);
-  transform-origin: right;
+.b.in {
+  animation: draw-in var(--fill-dur, 560ms) cubic-bezier(0.6, 0, 0.2, 1) var(--fill-delay, 0ms) both;
 }
 
-.is-built .b.in::before {
-  animation: frame 1s ease calc(var(--d, 0) * var(--step)) both;
-}
-
-.is-built .b.in::after {
-  animation: uncover 0.6s cubic-bezier(0.65, 0, 0.25, 1) calc(var(--d, 0) * var(--step) + 0.34s) both;
-}
-
-@keyframes frame {
+@keyframes draw-in {
   0% {
-    opacity: 1;
-    clip-path: inset(0 100% 0 0);
-  }
-  35%,
-  72% {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-  }
-  100% {
-    opacity: 0;
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes uncover {
-  0% {
-    transform: scaleX(1);
+    clip-path: inset(-12px 100% 100% -12px);
+    opacity: 0.4;
   }
   99% {
-    transform: scaleX(0);
-    visibility: visible;
+    clip-path: inset(-12px -12px -12px -12px);
+    opacity: 1;
   }
   100% {
-    transform: scaleX(0);
-    visibility: hidden;
+    clip-path: none;
+    opacity: 1;
   }
+}
+
+.sel-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sel {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  border: 1px solid var(--royal);
+  border-radius: 3px;
+  background: rgba(74, 108, 247, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(74, 108, 247, 0.12);
+}
+
+.sel__tag {
+  position: absolute;
+  left: -1px;
+  bottom: calc(100% + 4px);
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--royal);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.4;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 /* repeat visits in the same session: faster */
@@ -1456,9 +1446,9 @@ a.status__item:hover {
 }
 
 /* reduced motion: no build animation at all */
-.no-motion .b::before,
-.no-motion .b::after {
-  display: none;
+.no-motion .b {
+  clip-path: none;
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1568,8 +1558,8 @@ a.status__item:hover {
   .hide-sm {
     display: none;
   }
-  .b::before {
-    content: '';
+  .sel__tag {
+    display: none;
   }
   .bg-glow {
     background:

@@ -69,7 +69,7 @@ export default function Projects({ gh }) {
       </ul>
 
       {filtered.length > INITIAL && (
-        <button type="button" className="btn more" onClick={() => setShowAll((v) => !v)}>
+        <button type="button" className="btn more b" onClick={() => setShowAll((v) => !v)}>
           {showAll ? 'show less' : `show all ${filtered.length}`}
         </button>
       )}

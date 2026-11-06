@@ -30,6 +30,7 @@ export default function App() {
   const [showBoot, setShowBoot] = useState(mode === 'full')
   const [toast, setToast] = useState(null)
   const rootRef = useRef(null)
+  const layerRef = useRef(null)
 
   const onBootDone = useCallback(() => {
     try {
@@ -42,7 +43,7 @@ export default function App() {
   }, [])
 
   // Blocks build themselves in as they scroll into view.
-  useReveal(rootRef, phase === 'built' && mode !== 'none')
+  useReveal(rootRef, layerRef, phase === 'built' && mode !== 'none')
 
   const onFirstCommand = useCallback(() => {
     setToast('achievement unlocked: curious_engineer')
@@ -79,6 +80,7 @@ export default function App() {
           <Certificates certs={certs} />
         </main>
         <StatusBar gh={gh} />
+        <div className="sel-layer" ref={layerRef} aria-hidden="true" />
       </div>
       <div className={`toast${toast ? ' toast--on' : ''}`} role="status" aria-live="polite">
         {toast && (
