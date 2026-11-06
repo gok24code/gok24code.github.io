@@ -33,7 +33,7 @@ export default function Games() {
 
   return (
     <section className="games" id="games">
-      <header className="section-head section-head--row b" data-tag="header" style={{ '--i': 6 }}>
+      <header className="section-head section-head--row b" data-tag="header">
         <div>
           <p className="label">// 03 · games</p>
           <h2>
@@ -56,9 +56,9 @@ export default function Games() {
         </div>
       </header>
 
-      <ul className="games__track b" ref={track} style={{ '--i': 7 }}>
+      <ul className="games__track" ref={track}>
         {games.map((g) => (
-          <li key={g.id}>
+          <li key={g.id} className="b" data-fx="slide">
             <a className="game" href={g.url} target="_blank" rel="noopener noreferrer">
               <div className="game__cover">
                 <Cover g={g} />
@@ -84,7 +84,7 @@ export default function Games() {
             </a>
           </li>
         ))}
-        <li>
+        <li className="b" data-fx="slide">
           <a className="game game--more" href={ITCH_URL} target="_blank" rel="noopener noreferrer">
             <span className="game--more__icon" aria-hidden="true">
               ⌁

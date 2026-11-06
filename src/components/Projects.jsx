@@ -13,7 +13,7 @@ export default function Projects({ gh }) {
 
   return (
     <section className="projects" id="projects">
-      <header className="section-head b" data-tag="header" style={{ '--i': 6 }}>
+      <header className="section-head b" data-tag="header">
         <p className="label">// 02 · projects</p>
         <h2>
           Things I’ve built <span className="count">{repos.length || ''}</span>
@@ -21,7 +21,7 @@ export default function Projects({ gh }) {
       </header>
 
       {langs.length > 1 && (
-        <div className="filters b" data-tag="div.filters" style={{ '--i': 7 }} role="toolbar" aria-label="Filter by language">
+        <div className="filters b" data-fx="pop" role="toolbar" aria-label="Filter by language">
           <button type="button" className={`chip${lang === 'all' ? ' chip--on' : ''}`} onClick={() => setLang('all')}>
             all <span className="t-dim">{repos.length}</span>
           </button>
@@ -44,8 +44,8 @@ export default function Projects({ gh }) {
       )}
 
       <ul className="grid">
-        {visible.map((r, i) => (
-          <li key={r.id} className="b" data-tag={i < 3 ? 'article' : undefined} style={{ '--i': 8 + Math.min(i, 8) }}>
+        {visible.map((r) => (
+          <li key={r.id} className="b" data-fx="trace">
             <a className="card" href={r.url} target="_blank" rel="noopener noreferrer">
               <div className="card__top">
                 <h3>{r.name}</h3>
@@ -69,7 +69,7 @@ export default function Projects({ gh }) {
       </ul>
 
       {filtered.length > INITIAL && (
-        <button type="button" className="btn more b" onClick={() => setShowAll((v) => !v)}>
+        <button type="button" className="btn more b" data-fx="pop" onClick={() => setShowAll((v) => !v)}>
           {showAll ? 'show less' : `show all ${filtered.length}`}
         </button>
       )}

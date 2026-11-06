@@ -59,7 +59,7 @@ export default function App() {
       <div className={cls} ref={rootRef}>
         <div className="bg-glow" aria-hidden="true" />
         <div className="bg-grid" aria-hidden="true" />
-        <nav className="nav b" data-tag="nav" style={{ '--i': 0 }}>
+        <nav className="nav b" data-fx="drop">
           <a href="#top" className="nav__logo">
             <span className="nav__mark">G</span> {GH_USER}
           </a>

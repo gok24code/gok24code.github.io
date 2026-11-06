@@ -274,7 +274,7 @@ export default function Terminal({ gh, certs, built, onFirstCommand }) {
   }
 
   return (
-    <section className="term b" data-tag="section.terminal" style={{ '--i': 5 }} aria-label="Interactive terminal">
+    <section className="term b" data-fx="crt" aria-label="Interactive terminal">
       <div className="term__bar">
         <span className="term__dots" aria-hidden="true">
           <i />

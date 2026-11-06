@@ -16,7 +16,7 @@ export default function Certificates({ certs }) {
 
   return (
     <section className="certs" id="certificates">
-      <header className="section-head section-head--row b" data-tag="header" style={{ '--i': 6 }}>
+      <header className="section-head section-head--row b" data-tag="header">
         <div>
           <p className="label">// 04 · certificates</p>
           <h2>
@@ -30,8 +30,8 @@ export default function Certificates({ certs }) {
       </header>
 
       <ul className="certs__grid">
-        {certs.map((c, i) => (
-          <li key={c.image} className="b" style={{ '--i': 7 + Math.min(i, 6) }}>
+        {certs.map((c) => (
+          <li key={c.image} className="b" data-fx="flip">
             <button type="button" className="cert" onClick={() => setOpen(c)}>
               <div className="cert__img">
                 <img
