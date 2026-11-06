@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import Boot from './components/Boot'
 import Hero from './components/Hero'
 import Terminal from './components/Terminal'
@@ -8,6 +8,7 @@ import Certificates from './components/Certificates'
 import StatusBar from './components/StatusBar'
 import { GH_USER, useGithub } from './lib/github'
 import { useCerts } from './lib/extras'
+import { useReveal } from './lib/reveal'
 
 const SEEN_KEY = 'boot-seen'
 
@@ -40,14 +41,8 @@ export default function App() {
     setTimeout(() => setShowBoot(false), 500) // let the overlay fade out
   }, [])
 
-  // Label each wireframe with its tag and live size, like a dev-tools overlay.
-  useEffect(() => {
-    if (phase !== 'built') return
-    rootRef.current?.querySelectorAll('[data-tag]').forEach((el) => {
-      const r = el.getBoundingClientRect()
-      el.dataset.label = `${el.dataset.tag} · ${Math.round(r.width)}×${Math.round(r.height)}`
-    })
-  }, [phase, gh.status])
+  // Blocks build themselves in as they scroll into view.
+  useReveal(rootRef, phase === 'built' && mode !== 'none')
 
   const onFirstCommand = useCallback(() => {
     setToast('achievement unlocked: curious_engineer')

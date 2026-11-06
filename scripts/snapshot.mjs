@@ -49,10 +49,20 @@ await step('github', async () => {
 })
 
 await step('itch', async () => {
-  const res = await fetch(ITCH_ORIGIN, { headers: { 'User-Agent': 'Mozilla/5.0 (portfolio build)' } })
+  const res = await fetch(ITCH_ORIGIN, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36',
+      Accept: 'text/html,application/xhtml+xml',
+      'Accept-Language': 'en-US,en;q=0.9',
+    },
+  })
+  const html = await res.text()
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
-  const games = parseItch(await res.text(), ITCH_ORIGIN)
-  if (!games.length) throw new Error('no games parsed')
+  const games = parseItch(html, ITCH_ORIGIN)
+  if (!games.length) {
+    const title = html.match(/<title>([^<]*)<\/title>/i)?.[1]
+    throw new Error(`no games parsed (url ${res.url}, ${html.length} bytes, title "${title}", grid ${html.includes('user_game_grid')})`)
+  }
   next.games = games
 })
 
