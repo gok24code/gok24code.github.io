@@ -1,40 +1,66 @@
 // Parse a creator's itch.io page (https://<user>.itch.io/) into a list of games.
 // itch.io has no public, CORS-friendly API for this, so the build reads the
 // server-rendered HTML. Only the creator's own grid is used (collections are skipped).
-export function parseItch(html, origin) {
-  const start = html.indexOf('user_game_grid')
-  if (start < 0) return []
-  let end = html.indexOf('game_list_widget', start)
-  if (end < 0) end = html.length
-  const section = html.slice(start, end)
-  const decode = (s) =>
-    (s || '')
-      .replace(/&amp;/g, '&')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;|&#x27;/g, "'")
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .trim()
-  const pick = (chunk, re) => decode(chunk.match(re)?.[1])
+// itch.io does not emit HTML attributes in a stable order, so tags are parsed into
+// attribute maps instead of matching attribute sequences.
+const decode = (s) =>
+  (s || '')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&#x27;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .trim()
 
-  return section
-    .split('<div data-game_id="')
-    .slice(1)
-    .map((chunk) => {
-      const id = chunk.match(/^(\d+)/)?.[1]
-      const url = pick(chunk, /<a[^>]*href="([^"]+)"[^>]*class="title game_link"/)
-      const platforms = [...chunk.matchAll(/title="Download for ([^"]+)"/g)].map((m) => decode(m[1]))
-      if (/title="Play in browser"/.test(chunk)) platforms.unshift('Web')
+function tags(html) {
+  const out = []
+  for (const m of html.matchAll(/<([a-z]+)\b([^>]*)>/gi)) {
+    const attrs = {}
+    for (const a of m[2].matchAll(/([\w:-]+)\s*=\s*"([^"]*)"/g)) attrs[a[1].toLowerCase()] = a[2]
+    const end = m.index + m[0].length
+    const next = html.indexOf('<', end)
+    out.push({
+      name: m[1].toLowerCase(),
+      cls: ` ${attrs.class || ''} `,
+      attrs,
+      text: decode(html.slice(end, next < 0 ? undefined : next)),
+    })
+  }
+  return out
+}
+
+const has = (t, c) => t.cls.includes(` ${c} `)
+
+export function parseItch(html, origin) {
+  const startTag = html.match(/<div\b[^>]*\bclass="[^"]*\buser_game_grid\b[^"]*"[^>]*>/)
+  if (!startTag) return []
+  const start = startTag.index
+  const endTag = html.slice(start).match(/<div\b[^>]*\bclass="[^"]*\bgame_list_widget\b/)
+  const section = html.slice(start, endTag ? start + endTag.index : undefined)
+
+  const cellRe = /<div\b[^>]*\bdata-game_id="(\d+)"[^>]*>/g
+  const starts = [...section.matchAll(cellRe)]
+  return starts
+    .map((m, i) => {
+      const chunk = section.slice(m.index, starts[i + 1]?.index ?? section.length)
+      const t = tags(chunk)
+      const titleA = t.find((x) => x.name === 'a' && has(x, 'title') && has(x, 'game_link'))
+      const img = t.find((x) => x.name === 'img')
+      const textDiv = t.find((x) => has(x, 'game_text'))
+      const platforms = t
+        .map((x) => decode(x.attrs.title))
+        .filter((s) => s.startsWith('Download for ') || s === 'Play in browser')
+        .map((s) => (s === 'Play in browser' ? 'Web' : s.replace('Download for ', '')))
       return {
-        id,
-        title: pick(chunk, /class="title game_link"[^>]*>([^<]+)</),
-        url,
-        cover: pick(chunk, /data-lazy_src="([^"]+)"/) || null,
-        text: pick(chunk, /<div[^>]*title="([^"]*)"[^>]*class="game_text"/),
-        genre: pick(chunk, /class="game_genre">([^<]+)</) || null,
-        price: pick(chunk, /class="price_value">([^<]+)</) || null,
-        platforms,
+        id: m[1],
+        title: titleA?.text || '',
+        url: decode(titleA?.attrs.href),
+        cover: decode(img?.attrs['data-lazy_src'] || img?.attrs.src) || null,
+        text: decode(textDiv?.attrs.title) || textDiv?.text || '',
+        genre: t.find((x) => has(x, 'game_genre'))?.text || null,
+        price: t.find((x) => has(x, 'price_value'))?.text || null,
+        platforms: [...new Set(platforms)],
       }
     })
-    .filter((g) => g.id && g.title && g.url && (!origin || g.url.startsWith(origin)))
+    .filter((g) => g.title && g.url && (!origin || g.url.startsWith(origin)))
 }
