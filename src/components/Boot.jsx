@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { GH_USER, languageStats } from '../lib/github'
+import { games } from '../lib/extras'
 
 const MIN_MS = 1500
 const MAX_MS = 3200
@@ -54,6 +55,11 @@ export default function Boot({ gh, onDone }) {
         push({ s: 'ok', t: `${g.repos.length} repositories indexed · ${langs} languages` })
       } else {
         replaceLast({ s: '!!', t: 'github unreachable · continuing offline' })
+      }
+      setProgress(0.75)
+      if (games.length) {
+        await wait(150)
+        push({ s: 'ok', t: `${games.length} games loaded from itch.io` })
       }
       setProgress(0.85)
       await wait(180)

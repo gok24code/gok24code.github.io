@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { profile } from '../data/profile'
 import { GH_USER, languageStats, timeAgo } from '../lib/github'
+import { games, isJam, ITCH_URL } from '../lib/extras'
 
-const CHIPS = ['whoami', 'projects', 'stack', 'contact', 'help']
-const COMMANDS = ['help', 'whoami', 'projects', 'stack', 'contact', 'open', 'clear', 'sudo hire-me']
+const CHIPS = ['whoami', 'projects', 'games', 'certs', 'stack', 'contact', 'help']
+const COMMANDS = ['help', 'whoami', 'projects', 'games', 'certs', 'stack', 'contact', 'open', 'clear', 'sudo hire-me']
 const PROMPT = `${GH_USER}@portfolio:~$`
 
 const ext = { target: '_blank', rel: 'noopener noreferrer' }
 
-export default function Terminal({ gh, built, onFirstCommand }) {
+export default function Terminal({ gh, certs, built, onFirstCommand }) {
   const [lines, setLines] = useState([])
   const [value, setValue] = useState('')
   const [typing, setTyping] = useState(false)
@@ -17,12 +18,14 @@ export default function Terminal({ gh, built, onFirstCommand }) {
   const bodyRef = useRef(null)
   const inputRef = useRef(null)
   const ghRef = useRef(gh)
+  const certsRef = useRef(certs)
   const usedByUser = useRef(false)
   const runRef = useRef(null)
 
   useEffect(() => {
     ghRef.current = gh
-  }, [gh])
+    certsRef.current = certs
+  }, [gh, certs])
 
   useEffect(() => {
     const el = bodyRef.current
@@ -44,6 +47,8 @@ export default function Terminal({ gh, built, onFirstCommand }) {
           {[
             ['whoami', 'who is this'],
             ['projects', 'list repositories'],
+            ['games', 'games on itch.io'],
+            ['certs', 'certificates'],
             ['stack', 'languages, by repo count'],
             ['contact', 'where to reach me'],
             ['open <repo>', 'open a repository'],
@@ -96,6 +101,46 @@ export default function Terminal({ gh, built, onFirstCommand }) {
             )}
           </div>,
         )
+    } else if (key === 'games') {
+      out.push(
+        games.length ? (
+          <div className="t-grid">
+            {games.slice(0, 8).map((g) => (
+              <div key={g.id} className="t-row">
+                <a className="t-link" href={g.url} {...ext}>
+                  {g.title}
+                </a>
+                <span className="t-dim">
+                  {[g.genre, isJam(g) && 'game jam', g.price || 'free'].filter(Boolean).join(' · ')}
+                </span>
+              </div>
+            ))}
+            <a className="t-dim t-more" href="#games">
+              … {games.length} total · {ITCH_URL.replace('https://', '').replace(/\/$/, '')} ↓
+            </a>
+          </div>
+        ) : (
+          <span className="t-dim">no games found</span>
+        ),
+      )
+    } else if (key === 'certs' || key === 'certificates') {
+      const list = certsRef.current || []
+      out.push(
+        list.length ? (
+          <div className="t-grid">
+            {list.map((c) => (
+              <div key={c.image}>
+                <span className="t-ok">✓</span> {c.title}
+              </div>
+            ))}
+            <a className="t-dim t-more" href="#certificates">
+              view certificates ↓
+            </a>
+          </div>
+        ) : (
+          <span className="t-dim">no certificates found</span>
+        ),
+      )
     } else if (key === 'stack' || key === 'skills') {
       const stats = languageStats(repos)
       const max = stats[0]?.[1] || 1

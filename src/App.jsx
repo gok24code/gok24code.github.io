@@ -3,8 +3,11 @@ import Boot from './components/Boot'
 import Hero from './components/Hero'
 import Terminal from './components/Terminal'
 import Projects from './components/Projects'
+import Games from './components/Games'
+import Certificates from './components/Certificates'
 import StatusBar from './components/StatusBar'
 import { GH_USER, useGithub } from './lib/github'
+import { useCerts } from './lib/extras'
 
 const SEEN_KEY = 'boot-seen'
 
@@ -20,6 +23,7 @@ function bootMode() {
 
 export default function App() {
   const gh = useGithub()
+  const { certs } = useCerts()
   const [mode] = useState(bootMode)
   const [phase, setPhase] = useState(mode === 'full' ? 'boot' : 'built')
   const [showBoot, setShowBoot] = useState(mode === 'full')
@@ -65,15 +69,19 @@ export default function App() {
           </a>
           <div className="nav__links">
             <a href="#projects">projects</a>
+            <a href="#games">games</a>
+            <a href="#certificates">certs</a>
             <a href={`https://github.com/${GH_USER}`} target="_blank" rel="noopener noreferrer">
               github ↗
             </a>
           </div>
         </nav>
         <main>
-          <Hero gh={gh} built={built} />
-          <Terminal gh={gh} built={built} onFirstCommand={onFirstCommand} />
+          <Hero gh={gh} certs={certs} built={built} />
+          <Terminal gh={gh} certs={certs} built={built} onFirstCommand={onFirstCommand} />
           <Projects gh={gh} />
+          <Games />
+          <Certificates certs={certs} />
         </main>
         <StatusBar gh={gh} />
       </div>

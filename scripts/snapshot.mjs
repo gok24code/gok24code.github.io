@@ -1,25 +1,68 @@
-// Build-time snapshot of GitHub data.
-// The site fetches live data at runtime; this snapshot is the fallback when the
-// GitHub API is rate-limited or unreachable. If the fetch fails here, the
-// existing snapshot is kept so the build never breaks.
-import { writeFile } from 'node:fs/promises'
+// Build-time snapshot of everything the site shows.
+//  - GitHub profile + repos: also fetched live in the browser; this is the fallback.
+//  - itch.io games: itch.io has no browser-readable API, so this snapshot is the
+//    source. The GitHub Action rebuilds daily, so new games appear within a day.
+//  - Certificates: read live from the README; this is the fallback.
+// Each source is refreshed independently; if one fails, its previous data is kept.
+import { readFile, writeFile } from 'node:fs/promises'
+import { parseItch } from './itch.mjs'
+import { parseCerts, CERT_README_URL } from '../src/lib/certs.js'
 
-const USER = 'gok24code'
+const GH_USER = 'gok24code'
+const ITCH_ORIGIN = 'https://noxatra.itch.io/'
 const OUT = new URL('../src/data/snapshot.json', import.meta.url)
-const headers = { Accept: 'application/vnd.github+json', 'User-Agent': 'portfolio-build' }
-if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`
 
+const gh = { Accept: 'application/vnd.github+json', 'User-Agent': 'gok24code-portfolio-build' }
+if (process.env.GITHUB_TOKEN) gh.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`
+
+let prev = {}
 try {
+  prev = JSON.parse(await readFile(OUT, 'utf8'))
+} catch {
+  /* first run */
+}
+const next = { ...prev }
+
+async function step(name, fn) {
+  try {
+    await fn()
+    console.log(`[snapshot] ${name}: ok`)
+  } catch (err) {
+    console.warn(`[snapshot] ${name}: kept previous (${err.message})`)
+  }
+}
+
+await step('github', async () => {
   const [u, r] = await Promise.all([
-    fetch(`https://api.github.com/users/${USER}`, { headers }),
-    fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=pushed`, { headers }),
+    fetch(`https://api.github.com/users/${GH_USER}`, { headers: gh }),
+    fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=pushed`, { headers: gh }),
   ])
-  if (!u.ok || !r.ok) throw new Error(`GitHub API ${u.status}/${r.status}`)
+  if (!u.ok || !r.ok) throw new Error(`HTTP ${u.status}/${r.status}`)
   const user = await u.json()
   const repos = await r.json()
-  const snapshot = { fetchedAt: new Date().toISOString(), user, repos }
-  await writeFile(OUT, JSON.stringify(snapshot))
-  console.log(`[snapshot] ${repos.length} repos saved`)
-} catch (err) {
-  console.warn(`[snapshot] skipped, keeping previous snapshot (${err.message})`)
-}
+  next.user = (({ login, name, avatar_url, html_url, location, public_repos, followers, created_at }) => ({
+    login, name, avatar_url, html_url, location, public_repos, followers, created_at,
+  }))(user)
+  next.repos = repos.map(({ id, name, fork, archived, html_url, description, language, stargazers_count, pushed_at, homepage }) => ({
+    id, name, fork, archived, html_url, description, language, stargazers_count, pushed_at, homepage,
+  }))
+})
+
+await step('itch', async () => {
+  const res = await fetch(ITCH_ORIGIN, { headers: { 'User-Agent': 'Mozilla/5.0 (portfolio build)' } })
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const games = parseItch(await res.text(), ITCH_ORIGIN)
+  if (!games.length) throw new Error('no games parsed')
+  next.games = games
+})
+
+await step('certs', async () => {
+  const res = await fetch(CERT_README_URL)
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const certs = parseCerts(await res.text())
+  if (!certs.length) throw new Error('no certificates parsed')
+  next.certs = certs
+})
+
+next.fetchedAt = new Date().toISOString()
+await writeFile(OUT, JSON.stringify(next))

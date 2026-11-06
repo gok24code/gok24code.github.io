@@ -1,16 +1,16 @@
 import { profile } from '../data/profile'
 import { languageStats } from '../lib/github'
 import Scramble from './Scramble'
+import { games } from '../lib/extras'
 
-export default function Hero({ gh, built }) {
+export default function Hero({ gh, certs, built }) {
   const { user, repos } = gh
   const topLang = languageStats(repos)[0]?.[0]
-  const since = user?.created_at ? new Date(user.created_at).getFullYear() : null
   const meta = [
     ['repos', user ? user.public_repos : repos.length || '—'],
-    ['followers', user ? user.followers : '—'],
+    ['games', games.length || '—'],
+    ['certificates', certs.length || '—'],
     ['top lang', topLang || '—'],
-    ['since', since || '—'],
   ]
 
   return (
