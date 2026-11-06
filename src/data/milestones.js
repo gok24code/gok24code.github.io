@@ -9,7 +9,7 @@ export const milestones = [
   {
     now: true,
     kind: 'work',
-    title: 'Game Development Group Lead',
+    title: 'Board Member & Game Development Group Lead',
     text: 'ISUBÜ Siber Güvenlik ve Yapay Zeka Öğrenci Topluluğu',
   },
   {
