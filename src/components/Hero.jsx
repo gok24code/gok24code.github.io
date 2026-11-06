@@ -1,6 +1,7 @@
 import { profile } from '../data/profile'
 import { languageStats } from '../lib/github'
 import Scramble from './Scramble'
+import Portrait from './Portrait'
 import { games } from '../lib/extras'
 
 export default function Hero({ gh, certs, built }) {
@@ -43,19 +44,8 @@ export default function Hero({ gh, certs, built }) {
         </div>
       </div>
 
-      <aside className="hero__card b" data-tag="aside.card" data-fx="scan">
-        <div className="avatar">
-          {user?.avatar_url ? (
-            <img src={user.avatar_url} alt={`${profile.firstName} ${profile.lastName}`} width="460" height="460" />
-          ) : (
-            <div className="avatar__ph">{profile.firstName[0]}</div>
-          )}
-          <span className="avatar__scan" />
-          <i className="corner tl" />
-          <i className="corner tr" />
-          <i className="corner bl" />
-          <i className="corner br" />
-        </div>
+      <aside className="hero__card b" data-tag="aside.card" data-fx="portrait">
+        <Portrait user={user} />
         <dl className="meta">
           {meta.map(([k, v]) => (
             <div key={k}>

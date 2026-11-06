@@ -15,6 +15,7 @@ const NO_FRAME_LAG = 380 // where effects without a frame start, relative to the
 const FX = {
   select: { overlay: 'box', grow: 460, fill: 560 },
   scan: { overlay: 'box', grow: 460, fill: 720 },
+  portrait: { overlay: 'box', grow: 520, fill: 400 },
   crt: { overlay: 'crt', grow: 620, fill: 600 },
   trace: { overlay: 'trace', grow: 640, fill: 520 },
   type: { overlay: null, grow: 0, fill: 700 },
