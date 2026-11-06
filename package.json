@@ -1,7 +1,7 @@
 {
-  "name": "boutme",
+  "name": "gok24code-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "homepage": "https://gok24code.github.io",
   "scripts": {
@@ -10,11 +10,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "node scripts/snapshot.mjs"
   },
   "dependencies": {
-    "axios": "^1.13.2",
-    "framer-motion": "^12.23.26",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

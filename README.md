@@ -1,16 +1,21 @@
-# React + Vite
+# gok24code.github.io
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of Göktuğ Toyguç — https://gok24code.github.io
 
-Currently, two official plugins are available:
+- **Stack:** React 19 + Vite 7, no UI or animation libraries.
+- **Data:** profile and repositories are fetched live from the GitHub API. A build-time
+  snapshot (`scripts/snapshot.mjs` → `src/data/snapshot.json`) is the fallback when the API
+  is rate-limited. Forks, archived repos and the profile/site repos are filtered out.
+- **Intro:** boot log runs while the real fetch happens, then every block draws a wireframe
+  (with a dev-tools style size label) and fills in. Skippable; quick on repeat visits; off
+  with `prefers-reduced-motion`.
+- **Terminal:** `whoami`, `projects`, `stack`, `contact`, `open <repo>`, `clear`, and one more.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Static content (name, role, bio, links) lives in `src/data/profile.js`.
+Project descriptions come from each repo's GitHub description.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev      # local
+npm run deploy   # build + push dist/ to gh-pages
+```
